@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+:root {
+  --toastify-color-light: #fff;
+  --toastify-color-dark: #0f172a;
+}

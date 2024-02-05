@@ -1,9 +1,12 @@
-import { useState, createContext } from "react";
-import { SuprSendProvider } from "@suprsend/react-inbox";
+import { useState, createContext, useContext } from "react";
+import { SuprSendProvider, useEvent } from "@suprsend/react-inbox";
+import { ToastContainer, toast } from "react-toastify";
 import { getStyles } from "./styles";
 import PopUpInbox from "./PopUpInbox";
 import SideSheet from "./SideSheetInbox";
 import FullScreenInbox from "./FullScreenInbox";
+import ToastNotification from "./ToastNotification";
+import "react-toastify/dist/ReactToastify.css";
 
 const stores = [
   { storeId: "ALL", label: "All" },
@@ -48,12 +51,35 @@ export default function App() {
         distinctId={"katta.sivaram@suprsend.com"}
         stores={stores}
       >
-        <div style={{ margin: "20px 500px" }}>
-          <PopUpInbox />
-        </div>
-        {/* <SideSheet /> */}
-        {/* <FullScreenInbox /> */}
+        <InboxTypes />
       </SuprSendProvider>
     </InboxContext.Provider>
+  );
+}
+
+function InboxTypes() {
+  const { theme } = useContext(InboxContext);
+
+  useEvent("new_notification", (data) => {
+    toast(() => <ToastNotification data={data} />, {
+      icon: false,
+      type: "success",
+      theme: theme === "DARK" ? "dark" : "light",
+      closeOnClick: true,
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: true,
+    });
+  });
+
+  return (
+    <>
+      <div style={{ margin: "20px 500px" }}>
+        <PopUpInbox />
+      </div>
+      {/* <SideSheet /> */}
+      {/* <FullScreenInbox /> */}
+      <ToastContainer />
+    </>
   );
 }
