@@ -1,35 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, createContext } from "react";
+import { SuprSendProvider } from "@suprsend/react-inbox";
+import { getStyles } from "./styles";
+import PopUpInbox from "./PopUpInbox";
+import SideSheet from "./SideSheetInbox";
+import FullScreenInbox from "./FullScreenInbox";
 
-function App() {
-  const [count, setCount] = useState(0)
+const stores = [
+  { storeId: "ALL", label: "All" },
+  { storeId: "ALL_READ", label: "All", query: { read: true } },
+  { storeId: "ALL_UN_READ", label: "All", query: { read: false } },
+  { storeId: "MENTIONS", label: "Mentions", query: { tags: "mentions" } },
+  {
+    storeId: "MENTIONS_READ",
+    label: "Mentions",
+    query: { tags: "mentions", read: true },
+  },
+  {
+    storeId: "MENTIONS_UN_READ",
+    label: "Mentions",
+    query: { tags: "mentions", read: false },
+  },
+  { storeId: "REPLIES", label: "Replies", query: { tags: "replies" } },
+  {
+    storeId: "REPLIES_READ",
+    label: "Replies",
+    query: { tags: "replies", read: true },
+  },
+  {
+    storeId: "REPLIES_UN_READ",
+    label: "Replies",
+    query: { tags: "replies", read: false },
+  },
+];
+
+const Themes = { DARK: "DARK", LIGHT: "LIGHT" };
+
+export const InboxContext = createContext({});
+
+export default function App() {
+  const [theme] = useState(Themes.LIGHT);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <InboxContext.Provider value={{ theme, stores, styles: getStyles(theme) }}>
+      <SuprSendProvider
+        workspaceKey={"lap5NefpkeN4gKyi8CiM"}
+        subscriberId={"jI9WO0Qs3g1IcByQitm1BpyMB_AHPI8_jREYaKgwvRo"}
+        distinctId={"katta.sivaram@suprsend.com"}
+        stores={stores}
+      >
+        <div style={{ margin: "20px 500px" }}>
+          <PopUpInbox />
+        </div>
+        {/* <SideSheet /> */}
+        {/* <FullScreenInbox /> */}
+      </SuprSendProvider>
+    </InboxContext.Provider>
+  );
 }
-
-export default App

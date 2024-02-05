@@ -10,8 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@suprsend/react-inbox": "^2.1.0",
+    "dayjs": "^1.11.10",
+    "dompurify": "^3.0.8",
+    "marked": "^12.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-infinite-scroll-component": "^6.1.0",
+    "styled-components": "^6.1.8",
+    "vite-plugin-svgr": "^4.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
