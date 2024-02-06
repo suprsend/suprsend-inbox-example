@@ -16,3 +16,4 @@
 2. Make sure you have node version 18+ as its needed to run this vite project
 3. npm install
 4. npm run dev
+5. Replace `SuprSendProvider` props with your valid values.
