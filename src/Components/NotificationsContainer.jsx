@@ -242,7 +242,7 @@ export default function NotificationsContainer() {
               dataLength={notifications.length}
               next={fetchPrevious}
               hasMore={hasNext}
-              loader={<Loader />}
+              loader={<Loader styles={styles} />}
             >
               {notifications.map((notification) => {
                 return (
@@ -308,7 +308,7 @@ const FiltersContainer = styled.div`
   overflow: hidden;
 `;
 
-const FilterItem = styled.div`
+const FilterItem = styled(BaseText)`
   cursor: pointer;
   padding: 8px 16px 8px 16px;
   display: flex;

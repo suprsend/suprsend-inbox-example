@@ -50,6 +50,7 @@ const CustomLightColors = {
   secondaryButtonBgColor: LightColors.main,
   secondaryButtonHoverBgColor: "#F7F7F9",
   secondaryButtonTextColor: LightColors.secondaryText,
+  loaderColor: LightColors.primary,
 };
 
 const CustomDarkColors = {
@@ -84,6 +85,7 @@ const CustomDarkColors = {
   secondaryButtonBgColor: DarkColors.main,
   secondaryButtonHoverBgColor: "#28374F",
   secondaryButtonTextColor: DarkColors.secondaryText,
+  loaderColor: DarkColors.primary,
 };
 
 export function getStyles(theme) {
@@ -98,8 +100,4 @@ export const BaseText = styled.p`
   line-height: 20px;
   margin: 0px;
   padding: 0px;
-`;
-
-export const HelpText = styled(BaseText)`
-  font-size: 12px;
 `;

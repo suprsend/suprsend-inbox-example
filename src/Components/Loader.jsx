@@ -26,7 +26,7 @@ const Spinner = styled.div`
       : `3px solid ${props?.styles?.border}`};
   border-top: ${(props) =>
     props.size === "large" ? "5px solid" : "3px solid"};
-  border-top-color: #066af3;
+  border-top-color: ${({ styles }) => styles?.loaderColor};
   border-radius: 50%;
   animation: ${spin} 1s linear infinite;
   margin: 5px;
