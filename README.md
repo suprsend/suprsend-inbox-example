@@ -1,4 +1,4 @@
-- This repository contains different inbox's using suprsend inbox headless sdk [@suprsend/react-inbox](https://docs.suprsend.com/docs/headless-inbox) which is extremely customisable. You can use this code to build inbox in your proejct and customise this code according to your requirement and styles.
+- This repository contains different inbox's using suprsend inbox headless sdk [@suprsend/react-inbox](https://docs.suprsend.com/docs/headless-inbox) which is extremely customisable. You can use this code to build inbox in your project and customise this code according to your requirement and styles.
 
 - You can use [SuprSendInbox](https://docs.suprsend.com/docs/inbox-react) component in same SDK which comes with internal Inbox UI If you want basic customisations like css or pass few custom components.
 
