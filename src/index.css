@@ -2,3 +2,7 @@
   --toastify-color-light: #fff;
   --toastify-color-dark: #0f172a;
 }
+
+body {
+  margin: 0px;
+}
