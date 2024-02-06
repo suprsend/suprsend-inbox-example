@@ -27,7 +27,7 @@ const FILTER_OPTIONS = [
   },
 ];
 
-function Header({
+function NotificationHeader({
   activeTab,
   setActiveTab,
   activeFilter,
@@ -63,7 +63,12 @@ function Header({
               }}
             />
             {showFilterMenu && (
-              <FiltersContainer style={{ borderColor: styles.border }}>
+              <FiltersContainer
+                style={{
+                  borderColor: styles.border,
+                  backgroundColor: styles.backgroundColor,
+                }}
+              >
                 {FILTER_OPTIONS?.map((option) => {
                   return (
                     <FilterItem
@@ -155,20 +160,21 @@ function Header({
 export default function NotificationsContainer() {
   const { styles, stores } = useContext(InboxContext);
 
-  const [activeFilter, setActiveFilter] = useState("ALL");
-  const [changeTab, setChangeTab] = useState(false);
+  const [activeFilter, setActiveFilter] = useState("ALL"); //store selected filter type
+  const [changeTab, setChangeTab] = useState(false); // this dummy state is needed for infinite-scroll component to work properly on tab change
 
   const filteredStores = stores?.filter((store) => {
     if (activeFilter === "ALL") {
       return [undefined, null].includes(store?.query?.read);
     } else if (activeFilter === "READ") {
       return store?.query?.read === true;
-    } else if (activeFilter === "UN_READ") {
+    } else if (activeFilter === "UNREAD") {
       return store?.query?.read === false;
     }
     return [];
   });
 
+  // store selected tab id
   const [activeTab, setActiveTab] = useState(() =>
     filteredStores && Array.isArray(filteredStores) && filteredStores.length > 0
       ? filteredStores[0].storeId
@@ -187,6 +193,7 @@ export default function NotificationsContainer() {
     markClicked,
     fetchPrevious,
   } = useNotifications(activeTab);
+
   const unseenData = useStoresUnseenCount();
 
   let status;
@@ -197,10 +204,10 @@ export default function NotificationsContainer() {
   } else {
     status = "NOTIFICATIONS_VIEW";
   }
-  console.log(initialLoading, notifications?.length);
+
   return (
     <>
-      <Header
+      <NotificationHeader
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         activeFilter={activeFilter}
@@ -211,7 +218,11 @@ export default function NotificationsContainer() {
         unseenData={unseenData}
         styles={styles}
       />
-      {status === "LOADING_VIEW" && <Loader size="large" styles={styles} />}
+      {status === "LOADING_VIEW" && (
+        <LoaderContainer>
+          <Loader size="large" styles={styles} />
+        </LoaderContainer>
+      )}
       {status === "NO_NOTIFICATIONS_VIEW" && (
         <EmptyContainer>
           <EmptyNotificationsIcon />
@@ -285,7 +296,7 @@ const FilterIcon = styled(FilterSVG)`
 const FiltersContainer = styled.div`
   display: flex;
   flex-direction: column;
-  z-index: 10px;
+  z-index: 10;
   width: 22%;
   position: absolute;
   margin-right: 36px;
@@ -353,9 +364,7 @@ const TabView = styled.div`
 `;
 
 const TabText = styled(BaseText)`
-  font-size: 14px;
   font-weight: 500;
-  color: ${({ color }) => color};
 `;
 
 const TabBadge = styled.div`
@@ -381,8 +390,10 @@ const TabBottomBorder = styled.div`
   wth: id 100%;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  background-color: ${({ selectedTabBottomBorderColor }) =>
-    selectedTabBottomBorderColor};
+`;
+
+const LoaderContainer = styled.div`
+  margin-top: 24px;
 `;
 
 const EmptyContainer = styled.div`

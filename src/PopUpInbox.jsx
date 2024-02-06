@@ -10,11 +10,12 @@ import { BaseText } from "./styles";
 export default function PopUpInbox() {
   const { styles } = useContext(InboxContext);
   const { unSeenCount, markAllSeen } = useUnseenCount();
+
   const {
     ref,
     open: showNotifications,
     setOpen: setShowNotifications,
-  } = useClickOutside();
+  } = useClickOutside(); // hook to close popup on clicking outside
 
   const handleBellClick = () => {
     if (!showNotifications) {
@@ -35,10 +36,10 @@ export default function PopUpInbox() {
       </BellContainer>
       {showNotifications && (
         <PopUpNotifContainer
-          id="ss-notification-container"
+          id="ss-notification-container" // id is needed for infinite scroll fetch more
           style={{
             backgroundColor: styles.backgroundColor,
-            border: `1px solid ${styles.border}`,
+            borderColor: styles.border,
           }}
         >
           <NotificationsContainer />
@@ -88,6 +89,7 @@ const PopUpNotifContainer = styled.div`
   background: white;
   right: -20px;
   border-radius: 8px;
+  border: 1px solid;
   box-shadow: 0px 3px 3px 0px rgba(2, 6, 23, 0.03),
     0px 10px 24px 0px rgba(2, 6, 23, 0.08);
 `;

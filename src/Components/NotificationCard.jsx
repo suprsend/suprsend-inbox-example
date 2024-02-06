@@ -70,7 +70,7 @@ export default function Notification({ notificationData, markClicked }) {
       }
       onClick={(e) => {
         e.stopPropagation();
-        handleActionClick(notificationData.url);
+        handleActionClick(message?.url);
       }}
     >
       <NotificationView>
@@ -78,7 +78,8 @@ export default function Notification({ notificationData, markClicked }) {
           <AvatarView
             onClick={(e) => {
               e.stopPropagation();
-              handleActionClick(message?.avatar?.action_url);
+              const actionUrl = message?.avatar?.action_url || message?.url;
+              handleActionClick(actionUrl);
             }}
           >
             {message?.avatar?.avatar_url ? (
@@ -131,13 +132,16 @@ export default function Notification({ notificationData, markClicked }) {
           )}
         </RightView>
       </NotificationView>
+
+      {/* sub text */}
       {message?.subtext?.text && (
         <SubTextView
           link={message?.subtext?.action_url}
           hoverColor={styles.notificationSubTextColor}
           onClick={(e) => {
             e.stopPropagation();
-            handleActionClick(message?.subtext?.action_url);
+            const actionUrl = message?.subtext?.action_url || message?.url;
+            handleActionClick(actionUrl);
           }}
         >
           <SubText style={{ color: styles.notificationSubTextColor }}>
@@ -147,6 +151,7 @@ export default function Notification({ notificationData, markClicked }) {
       )}
       {hasButtons && (
         <ButtonContainer>
+          {/* primary action button */}
           {actionOne && (
             <ButtonView
               key={actionOne.id}
@@ -162,6 +167,8 @@ export default function Notification({ notificationData, markClicked }) {
               </ButtonText>
             </ButtonView>
           )}
+
+          {/* secondary action button */}
           {actionTwo && (
             <ButtonOutlineView
               style={{
@@ -273,7 +280,6 @@ const SubTextView = styled.div`
 const SubText = styled(BaseText)`
   font-size: 11px;
   margin-left: 42px;
-  color: ${({ textcolor }) => textcolor};
 `;
 
 const ButtonContainer = styled.div`

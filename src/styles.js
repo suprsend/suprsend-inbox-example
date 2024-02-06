@@ -15,7 +15,7 @@ const DarkColors = {
   secondary: "#1E293B",
   primaryText: "#CBD5E1",
   secondaryText: "#94A3B8",
-  border: "#1E293B",
+  border: "#334155",
 };
 
 const CustomLightColors = {
@@ -82,7 +82,7 @@ const CustomDarkColors = {
   primaryButtonHoverBgColor: "#265cbf",
   primaryButtonTextColor: DarkColors.primaryText,
   secondaryButtonBgColor: DarkColors.main,
-  secondaryButtonHoverBgColor: "#F7F7F9",
+  secondaryButtonHoverBgColor: "#28374F",
   secondaryButtonTextColor: DarkColors.secondaryText,
 };
 

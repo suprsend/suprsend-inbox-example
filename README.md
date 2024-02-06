@@ -1,8 +1,18 @@
-# React + Vite
+- This repository contains different inbox's using suprsend inbox headless sdk [@suprsend/react-inbox](https://docs.suprsend.com/docs/headless-inbox) which is extremely customisable.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- You can use [SuprSendInbox](https://docs.suprsend.com/docs/inbox-react) component in same SDK which comes with internal Inbox UI If you want basic customisations like css or pass few custom components.
 
-Currently, two official plugins are available:
+### Inbox Types present in this project:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- PopUp Inbox
+- Side Sheet Inbox
+- Full Screen Inbox
+
+  You can uncomment type of inbox you want to use, in `App.jsx`. Changing theme option is also available, you can set `Themes.DARK` in theme state in `App.jsx`.
+
+### Running Locally
+
+1. Clone repo
+2. Make sure you have node version 18+ as its needed to run this vite project
+3. npm install
+4. npm run dev

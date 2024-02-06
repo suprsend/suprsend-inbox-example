@@ -3,15 +3,17 @@ import { SuprSendProvider, useEvent } from "@suprsend/react-inbox";
 import { ToastContainer, toast } from "react-toastify";
 import { getStyles } from "./styles";
 import PopUpInbox from "./PopUpInbox";
-import SideSheet from "./SideSheetInbox";
+import SideSheetInbox from "./SideSheetInbox";
 import FullScreenInbox from "./FullScreenInbox";
 import ToastNotification from "./ToastNotification";
 import "react-toastify/dist/ReactToastify.css";
 
+// define all stores. If you are using filter you have to define combination of all filters
 const stores = [
   { storeId: "ALL", label: "All" },
   { storeId: "ALL_READ", label: "All", query: { read: true } },
-  { storeId: "ALL_UN_READ", label: "All", query: { read: false } },
+  { storeId: "ALL_UNREAD", label: "All", query: { read: false } },
+  // -------
   { storeId: "MENTIONS", label: "Mentions", query: { tags: "mentions" } },
   {
     storeId: "MENTIONS_READ",
@@ -19,10 +21,11 @@ const stores = [
     query: { tags: "mentions", read: true },
   },
   {
-    storeId: "MENTIONS_UN_READ",
+    storeId: "MENTIONS_UNREAD",
     label: "Mentions",
     query: { tags: "mentions", read: false },
   },
+  //---------
   { storeId: "REPLIES", label: "Replies", query: { tags: "replies" } },
   {
     storeId: "REPLIES_READ",
@@ -30,7 +33,7 @@ const stores = [
     query: { tags: "replies", read: true },
   },
   {
-    storeId: "REPLIES_UN_READ",
+    storeId: "REPLIES_UNREAD",
     label: "Replies",
     query: { tags: "replies", read: false },
   },
@@ -41,14 +44,14 @@ const Themes = { DARK: "DARK", LIGHT: "LIGHT" };
 export const InboxContext = createContext({});
 
 export default function App() {
-  const [theme] = useState(Themes.LIGHT);
+  const [theme] = useState(Themes.LIGHT); // change theme: Themes.DARK or Themes.LIGHT
 
   return (
     <InboxContext.Provider value={{ theme, stores, styles: getStyles(theme) }}>
       <SuprSendProvider
-        workspaceKey={"lap5NefpkeN4gKyi8CiM"}
-        subscriberId={"jI9WO0Qs3g1IcByQitm1BpyMB_AHPI8_jREYaKgwvRo"}
-        distinctId={"katta.sivaram@suprsend.com"}
+        workspaceKey={import.meta.env.VITE_WORKSPACE_KEY}
+        distinctId={import.meta.env.VITE_DISTINCT_ID}
+        subscriberId={import.meta.env.VITE_SUBSCRIBER_ID}
         stores={stores}
       >
         <InboxTypes />
@@ -60,6 +63,7 @@ export default function App() {
 function InboxTypes() {
   const { theme } = useContext(InboxContext);
 
+  // remove this if toast notification is not needed
   useEvent("new_notification", (data) => {
     toast(() => <ToastNotification data={data} />, {
       icon: false,
@@ -72,12 +76,20 @@ function InboxTypes() {
     });
   });
 
+  // uncomment inbox type you want to use
   return (
     <>
-      <div style={{ margin: "20px 500px" }}>
+      <div
+        style={{
+          padding: "20px 500px",
+          backgroundColor: theme === "DARK" ? "black" : "white",
+        }}
+      >
         <PopUpInbox />
       </div>
-      {/* <SideSheet /> */}
+
+      {/* <SideSheetInbox /> */}
+
       {/* <FullScreenInbox /> */}
       <ToastContainer />
     </>
